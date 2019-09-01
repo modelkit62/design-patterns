@@ -1,0 +1,37 @@
+pm.test("Status code is 202", function () {
+    pm.response.to.have.status(202);
+});
+
+pm.test("Body matches string", function () {
+    pm.expect(pm.response.text()).to.include("todo");
+});
+
+pm.test("E tag header is present", function () {
+    pm.response.to.have.header("ETag");
+});
+
+
+pm.test("E tag header is the expected", function () {
+   pm.expect(pm.response.headers.get("ETag")).to.eql('"HijoPUTA"');
+});
+
+
+
+pm.test("Los cojones!", function () {
+  const data = pm.response.json();
+  
+  pm.expect(data.every((dat) => {
+      return dat.name !== undefined;
+  })).to.be.true;
+});
+
+
+pm.environment.set('name', 'Hijo Puta!');
+console.log(pm.environment.get('name'));
+console.log(pm.variables.get('name'));
+console.log(pm.globals.get('name'));
+
+console.log(pm.response.headers.get('ETag'));
+
+
+console.log(pm.response.json());
